@@ -26,10 +26,9 @@ model Admin {
 
 model Animal {
   id        String   @id @default(uuid())
-  name      String
   species   String
-  breed     String
   gender    String
+  isChild   Boolean  @default(false)
   age       Int
   weight    Float
   createdAt DateTime @default(now())
@@ -51,7 +50,9 @@ model Ticket {
 enum Role {
   ADMIN
   STAFF
+  USER
 }
+
 
 enum PassType {
   ONE_TIME
