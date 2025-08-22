@@ -45,11 +45,11 @@ jobs:
             username: ${{ secrets.SSH_HOSTNAME }}
             key: ${{ secrets.SSH_KEY }}
             script: |
-              sudo docker stop zms-backend || true
-              sudo docker rm zms-backend || true
-              sudo docker rmi shishuranjan/zms-backend:latest || true
-              sudo docker pull shishuranjan/zms-backend:latest
-              sudo docker run -d \
+               docker stop zms-backend || true
+               docker rmi shishuranjan/zms-backend:latest || true
+               docker rm zms-backend || true
+               docker pull shishuranjan/zms-backend:latest
+               docker run -d \
                 -e DATABASE_URL="${{ secrets.DATABASE_URL }}" \
                 -e JWT_SECRET="${{ secrets.JWT_SECRET }}" \
                 --name zms-backend \
