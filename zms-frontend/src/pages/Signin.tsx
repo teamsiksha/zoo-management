@@ -1,6 +1,5 @@
 import { SigninCard } from "../components/custom/SigninCard"
 import { MagicCard } from "../components/magicui/magic-card"
-import { Button } from "../components/ui/button"
 
 const Signin = () => {
     return (
