@@ -8,7 +8,8 @@
     "lint:fix": "eslint . --fix",
     "format": "prettier --write .",
     "format:prisma": "prisma format",
-    "db:seed": "tsx prisma/seed.ts",
+    "db:seed:admins": "tsx prisma/seed-admins.ts",
+    "db:seed:animals": "tsx prisma/seed-animals.ts",
     "db:reset": "prisma migrate reset && npm run db:seed"
   },
   "prisma": {
