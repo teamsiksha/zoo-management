@@ -30,13 +30,13 @@ jobs:
           uses: docker/build-push-action@v5
           with:
             context: .
-            file: ./zms-backend/Dockerfile.backend
+            file: ./zms-backend/Dockerfile.Backend
             push: true
-            tags: shishuranjan/zms-backend:latest
+            tags: shishuranjan/zms:latest
         - name: verify pushed image
           run: |
-            docker pull shishuranjan/zms-backend:latest
-            docker run -d -p 3000:3000 shishuranjan/zms-backend:latest
+            docker pull shishuranjan/zms:latest 
+            docker run -d -p 3000:3000 shishuranjan/zms:latest
         
         - name : Deploy to EC2
           uses: appleboy/ssh-action@master
@@ -45,13 +45,13 @@ jobs:
             username: ${{ secrets.SSH_HOSTNAME }}
             key: ${{ secrets.SSH_KEY }}
             script: |
-               docker stop zms-backend || true
-               docker rmi shishuranjan/zms-backend:latest || true
-               docker rm zms-backend || true
-               docker pull shishuranjan/zms-backend:latest
+               docker stop zms || true
+               docker rmi shishuranjan/zms:latest || true
+               docker rm zms || true
+               docker pull shishuranjan/zms:latest
                docker run -d \
                 -e DATABASE_URL="${{ secrets.DATABASE_URL }}" \
                 -e JWT_SECRET="${{ secrets.JWT_SECRET }}" \
-                --name zms-backend \
-                -p 4000:4000 \
-                shishuranjan/zms-backend:latest
+                --name zms \
+                -p 3000:3000 \
+                shishuranjan/zms:latest
