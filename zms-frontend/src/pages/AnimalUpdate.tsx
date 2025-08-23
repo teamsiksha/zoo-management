@@ -1,5 +1,5 @@
 import axios from "axios"
-import {useLocation} from "react-router-dom"
+import {useLocation,useNavigate} from "react-router-dom"
 import React,{useState} from "react"
 import { api } from "@/services/api"
 type genderType="MALE" | "FEMALE"
@@ -12,6 +12,7 @@ type Animal={
 }
 const AnimalUpdate = () =>{
     const location=useLocation();
+    const navigate=useNavigate();
     const animalData={
         species:location.state.species,
         gender:location.state.gender as genderType,
@@ -53,7 +54,8 @@ const AnimalUpdate = () =>{
                 withCredentials:true
             });
             if(response.status==200){
-                alert("updated");
+                // alert("updated");
+                navigate(-1);
                 return;
             }
             else{

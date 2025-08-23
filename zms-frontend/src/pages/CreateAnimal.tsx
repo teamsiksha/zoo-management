@@ -58,7 +58,7 @@ const CreateAnimal = () => {
             });
             if(response.status===201){
                 console.log(response.data);
-                alert("Animal created successfully");
+                // alert("Animal created successfully");
                 setAnimal({
                     species:"",
                     gender:"MALE",

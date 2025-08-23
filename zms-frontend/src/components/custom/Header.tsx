@@ -1,21 +1,35 @@
 import { Images } from "@/assets/Images";
 import { Button } from "@/components/ui/button";
 import { Shield } from "lucide-react";
+
 import { Link, useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 export default function Header() {
     const navigate = useNavigate();
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+    useEffect(() => {
+        setIsLoggedIn(!!localStorage.getItem("token"));
+        const onStorage = () => setIsLoggedIn(!!localStorage.getItem("token"));
+        window.addEventListener("storage", onStorage);
+        return () => window.removeEventListener("storage", onStorage);
+    }, []);
+
+    const handleLogout = () => {
+        localStorage.removeItem("token");
+        setIsLoggedIn(false);
+        navigate("/signin");
+    };
 
     const handleScroll = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
-        e.preventDefault(); // stop default anchor behavior
-
+        e.preventDefault();
         if (window.location.pathname !== "/") {
-            // Navigate to home page first
             navigate("/");
             setTimeout(() => {
                 const element = document.getElementById(id);
                 if (element) element.scrollIntoView({ behavior: "smooth" });
-            }, 50); // small delay to let page render
+            }, 50);
         } else {
             const element = document.getElementById(id);
             if (element) element.scrollIntoView({ behavior: "smooth" });
@@ -50,10 +64,36 @@ export default function Header() {
 
                 </nav>
 
-                <Button variant="admin" size="sm" className="hover:bg-[var(--primary-color)] bg-[hsl(var(--secondary-color))] cursor-pointer" onClick={() => navigate("/signin")}>
-                    <Shield className="h-4 w-4" />
-                    Admin Portal
-                </Button>
+                {isLoggedIn ? (
+                    <div className="flex gap-3">
+                        <Button
+                            variant="admin"
+                            size="sm"
+                            className="hover:bg-[var(--primary-color)] bg-[hsl(var(--secondary-color))] cursor-pointer"
+                            onClick={() => navigate("/dashboard/animals")}
+                        >
+                            Animals Details
+                        </Button>
+                        <Button
+                            variant="admin"
+                            size="sm"
+                            className="hover:bg-[var(--primary-color)] bg-[hsl(var(--secondary-color))] cursor-pointer"
+                            onClick={handleLogout}
+                        >
+                            Logout
+                        </Button>
+                    </div>
+                ) : (
+                    <Button
+                        variant="admin"
+                        size="sm"
+                        className="hover:bg-[var(--primary-color)] bg-[hsl(var(--secondary-color))] cursor-pointer"
+                        onClick={() => navigate("/signin")}
+                    >
+                        <Shield className="h-4 w-4" />
+                        Admin Portal
+                    </Button>
+                )}
             </div>
         </header>
     );

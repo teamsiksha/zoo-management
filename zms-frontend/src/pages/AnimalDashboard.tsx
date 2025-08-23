@@ -44,11 +44,11 @@ const animalDashboard = () =>{
                 withCredentials:true
             })
             if(response.status===200 || response.status===201){
-                alert("Animal deleted successfully");
+                // alert("Animal deleted successfully");
                 setAnimals(animals.filter(animal=>animal.id!==animalId));
             }
             else{
-                alert("Failed to delete animal");
+                // alert("Failed to delete animal");
             }
         }
         catch(err){console.error(err)};
