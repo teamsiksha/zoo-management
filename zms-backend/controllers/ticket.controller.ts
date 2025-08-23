@@ -5,10 +5,10 @@ import { createTicketSchema } from "../schema/schmea";
 const prisma = new PrismaClient();
 
 export async function createTicket(req: Request, res: Response) {
-  const { success } = createTicketSchema.safeParse(req.body);
+  const { success, error } = createTicketSchema.safeParse(req.body);
 
   if (!success) {
-    res.status(400).json({ error: "Invlid inputs" });
+    res.status(400).json({ error: "Invlid inputs", details: error });
     return;
   }
 
@@ -24,7 +24,7 @@ export async function createTicket(req: Request, res: Response) {
   });
 
   if (!ticket) {
-    res.status(400).json({ error: "Failed to create ticket" });
+    res.status(400).json({ error: "Failed to create ticket", details: error });
     return;
   }
   res.status(201).json(ticket);
@@ -91,7 +91,7 @@ export async function getTicketStats(req: Request, res: Response) {
     res.status(200).json(stats);
   } catch (error) {
     console.error("Error fetching ticket statistics:", error);
-    res.status(500).json({ error: "Failed to fetch ticket statistics" });
+    res.status(500).json({ error: "Failed to fetch ticket statistics", details: error });
   }
 }
 
@@ -102,7 +102,7 @@ export async function getTicketById(req: Request, res: Response) {
     },
   });
   if (!ticket) {
-    res.status(404).json({ error: "Ticket not found" });
+    res.status(404).json({ error: "Ticket not found"});
     return;
   }
   res.status(200).json(ticket);

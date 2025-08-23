@@ -14,10 +14,10 @@ export async function createAnimal(req: Request, res: Response) {
       return;
     }
 
-    const { success } = AnimalSchema.safeParse(req.body);
+    const { success, error } = AnimalSchema.safeParse(req.body);
 
     if (!success) {
-      res.status(400).json({ error: "Invalid inputs" });
+      res.status(400).json({ error: "Invalid inputs", details: error });
       return;
     }
 
@@ -35,6 +35,7 @@ export async function createAnimal(req: Request, res: Response) {
   } catch (error) {
     console.error("Error creating animal:", error);
     res.status(500).json({ error: "Failed to create animal" });
+    return;
   }
 }
 
@@ -81,9 +82,11 @@ export async function getAnimalById(req: Request, res: Response) {
     }
 
     res.status(200).json(animal);
+    return;
   } catch (error) {
     console.error("Error fetching animal:", error);
     res.status(500).json({ error: "Failed to fetch animal" });
+    return
   }
 }
 
@@ -97,10 +100,10 @@ export async function updateAnimal(req: Request, res: Response) {
       return;
     }
 
-    const { success } = AnimalSchema.safeParse(req.body);
+    const { success, error } = AnimalSchema.safeParse(req.body);
 
     if (!success) {
-      res.status(400).json({ error: "Invalid inputs" });
+      res.status(400).json({ error: "Invalid inputs", details: error });
       return;
     }
 
@@ -121,6 +124,7 @@ export async function updateAnimal(req: Request, res: Response) {
   } catch (error) {
     console.error("Error updating animal:", error);
     res.status(500).json({ error: "Failed to update animal" });
+    return;
   }
 }
 
@@ -146,10 +150,12 @@ export async function deleteAnimal(req: Request, res: Response) {
     });
   } catch (error) {
     console.error("Error deleting animal:", error);
+
+    //@ts-ignore
     if (error.code === "P2025") {
       res.status(404).json({ error: "Animal not found" });
-    } else {
-      res.status(500).json({ error: "Failed to delete animal" });
+      } else {
+        res.status(500).json({ error: "Failed to delete animal" });
     }
   }
 }
