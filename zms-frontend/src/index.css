@@ -8,9 +8,70 @@
   line-height: 1.5;
   font-weight: 400;
 
-  /* color-scheme: light dark;
-  color: rgba(255, 255, 255, 0.87);
-  background-color: #242424; */
+
+  /* Primary Colors - Forest Green Theme */
+  --primary-color: 140 60% 25%;
+  /* Deep forest green */
+  --primary-foreground: 0 0% 98%;
+  /* Off-white text */
+
+  /* Secondary Colors */
+  --secondary-color: 120 25% 90%;
+  /* Light mint green */
+  --secondary-foreground: 140 30% 20%;
+  /* Dark green text */
+
+  /* Accent Colors - Sunset Orange */
+  --accent-color: 35 80% 55%;
+  /* Warm orange */
+  --accent-foreground: 0 0% 98%;
+  /* White text */
+
+  /* Feedback / Utility Colors */
+  --success-color: 145 50% 35%;
+  /* Vibrant green */
+  --success-foreground: 0 0% 98%;
+
+  --warning-color: 45 95% 50%;
+  /* Bright amber yellow */
+  --warning-foreground: 30 20% 15%;
+  /* Dark brown text */
+
+  --danger-color: 5 70% 50%;
+  /* Rich red */
+  --danger-foreground: 0 0% 98%;
+
+  --info-color: 200 85% 45%;
+  /* Calm blue */
+  --info-foreground: 0 0% 98%;
+
+  /* Background Colors */
+  --background: 45 20% 97%;
+  /* Warm white */
+  --foreground: 140 15% 12%;
+  /* Dark green-black */
+  --card: 0 0% 100%;
+  /* Pure white */
+  --card-foreground: 140 15% 12%;
+  /* Dark text */
+
+  /* Utility Colors */
+  --muted: 120 15% 95%;
+  /* Very light green */
+  --muted-foreground: 140 8% 45%;
+  /* Medium gray-green */
+  --border: 120 20% 88%;
+  /* Light green border */
+
+  /* Gradients */
+  --gradient-hero: linear-gradient(135deg, hsl(140 60% 25%) 0%, hsl(120 40% 35%) 50%, hsl(100 45% 40%) 100%);
+  --gradient-card: linear-gradient(145deg, hsl(0 0% 100%) 0%, hsl(120 25% 97%) 100%);
+  --gradient-accent: linear-gradient(135deg, hsl(35 80% 55%) 0%, hsl(25 70% 50%) 100%);
+
+  /* Shadows */
+  --shadow-nature: 0 10px 30px -10px hsl(140 60% 25% / 0.2);
+  --shadow-card: 0 4px 20px -4px hsl(140 30% 20% / 0.1);
+  --shadow-glow: 0 0 40px hsl(35 80% 55% / 0.3);
 
   font-synthesis: none;
   text-rendering: optimizeLegibility;
@@ -50,15 +111,6 @@
   --sidebar-ring: oklch(0.708 0 0);
 }
 
-a {
-  font-weight: 500;
-  color: #646cff;
-  text-decoration: inherit;
-}
-
-a:hover {
-  color: #535bf2;
-}
 
 body,
 #root {
@@ -67,21 +119,8 @@ body,
   place-items: center;
   height: 100%;
   width: 100%;
-  /* min-width: 320px; */
-  /* min-height: 100vh; */
 }
 
-button {
-  /* border-radius: 8px;
-  border: 1px solid transparent;
-  padding: 0.6em 1.2em;
-  font-size: 1em;
-  font-weight: 500;
-  font-family: inherit;
-  background-color: #1a1a1a;
-  cursor: pointer;
-  transition: border-color 0.25s; */
-}
 
 button:hover {
   border-color: #646cff;
@@ -172,8 +211,4 @@ button:focus-visible {
   body {
     @apply bg-background text-foreground;
   }
-}
-
-h1 {
-  color: black;
 }
