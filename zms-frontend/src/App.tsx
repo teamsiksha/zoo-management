@@ -4,18 +4,18 @@ import Home from "./pages/Home";
 import Signin from "./pages/Signin";
 import AdminPortal from "./pages/AdminPortal";
 import NotFound from "./pages/NotFound";
-// import Home from "./pages/";
-
+import TicketBooking from "./components/custom/TicketBooking";
+import MyTickets from "./components/custom/MyTickets";
 
 function App() {
 
   return (
     <Routes>
-      {/* App should be in white bg and using colorful demonstrations */}
       <Route path="/" element={<Home />} />
       <Route path="/signin" element={<Signin />} />
       <Route path="/portal/admin" element={<AdminPortal />} />
-      {/* /map */}
+      <Route path="/book-ticket" element={<TicketBooking />} />
+      <Route path="/my-tickets" element={<MyTickets />} />
       <Route path="*" element={<NotFound />} />
     </Routes>
 
