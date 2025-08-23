@@ -1,5 +1,4 @@
 import { Card } from "@/components/ui/card";
-import { Button } from "@/components/ui/button";
 import {
     Camera,
     Binoculars,
@@ -7,8 +6,6 @@ import {
     Sunrise,
     Users,
     Shield,
-    Clock,
-    Award
 } from "lucide-react";
 
 export const Features = () => {
