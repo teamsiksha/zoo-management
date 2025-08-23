@@ -50,7 +50,7 @@ export default function Header() {
 
                 </nav>
 
-                <Button variant="admin" size="sm" className="hover:bg-[hsl(var(--primary-color))] bg-[hsl(var(--secondary-color))] cursor-pointer">
+                <Button variant="admin" size="sm" className="hover:bg-[var(--primary-color)] bg-[hsl(var(--secondary-color))] cursor-pointer" onClick={() => navigate("/signin")}>
                     <Shield className="h-4 w-4" />
                     Admin Portal
                 </Button>
