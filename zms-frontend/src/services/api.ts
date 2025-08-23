@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const API_BASE_URL = 'http://zmsbackend.shishuranjan.online/api'; //DEPLOYED URL HERE
+export const API_BASE_URL = 'https://zmsbackend.shishuranjan.online/api'; //DEPLOYED URL HERE
 
 export const api = axios.create({
     baseURL: API_BASE_URL,

@@ -12,7 +12,7 @@ const PORT = process.env.PORT || 3000;
 const app = express();
 const prisma = new PrismaClient();
 app.use(cors({
-    origin: "http://localhost:5173",
+    origin: ["http://localhost:5173","https://zms.shishuranjan.online"],
     credentials: true,
 }));
 app.use(express.json());
