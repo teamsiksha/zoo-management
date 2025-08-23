@@ -10,6 +10,7 @@
     "format:prisma": "prisma format",
     "db:seed:admins": "tsx prisma/seed-admins.ts",
     "db:seed:animals": "tsx prisma/seed-animals.ts",
+    "db:seed:tickets": "tsx prisma/seed-tickets.ts",
     "db:reset": "prisma migrate reset && npm run db:seed"
   },
   "prisma": {

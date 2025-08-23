@@ -2,7 +2,7 @@ import { z } from "zod";
 
 export const createTicketSchema = z.object({
     name: z.string().min(1),
-    dateOfVisit: z.date(),
+    dateOfVisit: z.coerce.date(),
     description: z.string().min(1),
     passType: z.enum(["ONE_TIME", "MONTHLY", "YEARLY"]),
     passStatus: z.enum(["NORMAL", "VIP"]),

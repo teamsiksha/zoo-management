@@ -1,4 +1,4 @@
-import { PrismaClient } from '@prisma/client';
+import { Prisma, PrismaClient } from '@prisma/client';
 
 const prisma = new PrismaClient();
 
@@ -411,7 +411,7 @@ async function seedTickets() {
   // Create tickets
   console.log(`🌱 Creating ${ticketData.length} tickets...`);
   const createdTickets = await prisma.ticket.createMany({
-    data: ticketData,
+    data: ticketData as Prisma.TicketCreateManyInput[],
     skipDuplicates: true,
   });
 
