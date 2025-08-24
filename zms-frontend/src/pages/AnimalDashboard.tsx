@@ -1,6 +1,4 @@
-import axios from "axios";
 import { useEffect,useState } from "react"
-import { dummyAnimals } from "@/components/custom/dummyAnimals";
 import { useNavigate } from "react-router-dom";
 import { api } from "@/services/api";
 import Header from "@/components/custom/Header";
@@ -27,7 +25,6 @@ const animalDashboard = () =>{
                     withCredentials:true
                 });
                 if(response.status===200 || response.status===201){
-                    console.log(response.data);
                     setAnimals(response.data);
                     setIsLoading(false);
                 }   
@@ -44,11 +41,10 @@ const animalDashboard = () =>{
                 withCredentials:true
             })
             if(response.status===200 || response.status===201){
-                // alert("Animal deleted successfully");
                 setAnimals(animals.filter(animal=>animal.id!==animalId));
             }
             else{
-                // alert("Failed to delete animal");
+                
             }
         }
         catch(err){console.error(err)};

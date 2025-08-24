@@ -1,4 +1,3 @@
-import axios from "axios"
 import {useLocation,useNavigate} from "react-router-dom"
 import React,{useState} from "react"
 import { api } from "@/services/api"
@@ -29,17 +28,14 @@ const AnimalUpdate = () =>{
         e.preventDefault();
         const speciesCheck=animal.species.trim();
         if(speciesCheck.length===0){
-            alert("Enter species name correctly!");
             return;
         }
         const ageNum=Number(animal.age);
         if(ageNum<0||ageNum>200||isNaN(ageNum)){
-            alert("Enter valid age(0-200) in years!");
             return;
         }
         const weightNum=Number(animal.weight);
         if(weightNum<0 || weightNum>10000 || isNaN(weightNum)){
-            alert("Enter valid weight(1-10000) in kg");
             return;
         }
         const dataToSent={
@@ -54,12 +50,10 @@ const AnimalUpdate = () =>{
                 withCredentials:true
             });
             if(response.status==200){
-                // alert("updated");
                 navigate(-1);
                 return;
             }
             else{
-                alert("unable to update!");
                 return;
             }
         }

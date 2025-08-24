@@ -1,5 +1,4 @@
 import React,{useState} from "react"
-import axios from "axios";
 import { api } from "@/services/api";
 type genderType = "MALE" | "FEMALE"
 
@@ -24,25 +23,20 @@ const CreateAnimal = () => {
     }
     const handleSubmit =async(e:React.FormEvent<HTMLFormElement>)=>{
         e.preventDefault();
-        // console.log(animal);
         const speciescheck=animal.species.trim();
         if(speciescheck.length===0){
-            alert("Please fill all the fields");
             return;
         }
         const ageNum=Number(animal.age);
         if(ageNum<0 || ageNum>200 || isNaN(ageNum) || !Number.isInteger(ageNum)){
-            alert("Enter valid age(1-200)");
             return;
         }
         const weightNum=Number(animal.weight);
         if(weightNum<0 || weightNum>10000 || isNaN(weightNum)){
-            alert("Enter valid weight(1-10000)");
             return;
         }
 
         if(!animal.species.length || !animal.age.length || !animal.weight.length){
-            alert("Please fill all the fields");
             return;
         }
 
@@ -57,8 +51,6 @@ const CreateAnimal = () => {
                 withCredentials:true
             });
             if(response.status===201){
-                console.log(response.data);
-                // alert("Animal created successfully");
                 setAnimal({
                     species:"",
                     gender:"MALE",
@@ -68,7 +60,7 @@ const CreateAnimal = () => {
                 })
             }
             else{
-                alert("Failed to create animal with error"+response.data.message.toString());
+              
             }
         }
         catch(err) {console.error(err)};

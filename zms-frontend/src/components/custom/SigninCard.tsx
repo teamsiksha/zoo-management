@@ -10,7 +10,6 @@ import {
 } from "@/components/ui/card"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
-import axios from "axios"
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { api } from "@/services/api";
@@ -40,7 +39,6 @@ export function SigninCard() {
 
     const handleSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log("Form submitted:", form);
         const validationErrors = validate();
         if (Object.keys(validationErrors).length > 0) {
             setErrors(validationErrors);
@@ -48,13 +46,10 @@ export function SigninCard() {
         }
         // Proceed with login logic here
         try{
-            console.log("Submitting to /auth/login:", form);
             const response = await api.post('/auth/login', form);
             
             if(response.status === 200 || response.status === 201){
                 localStorage.setItem("token", response.data.token);
-                console.log(response.data);
-                alert("Login successful");
                 navigate("/dashboard/animals");
             }
         }
