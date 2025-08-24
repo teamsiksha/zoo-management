@@ -39,10 +39,11 @@ const TicketBooking: React.FC = () => {
     const [error, setError] = useState('');
     const [successPopupOpen, setSuccessPopupOpen] = useState(false);
     const [createdTicket, setCreatedTicket] = useState<Ticket | null>(null);
+
     const passTypes = [
-        { value: 'ONE_TIME', label: 'One Time Pass', price: '75 Rs', description: 'Single day entry' },
-        { value: 'MONTHLY', label: 'Monthly Pass', price: '1000 Rs', description: 'Unlimited visits for 30 days' },
-        { value: 'YEARLY', label: 'Annual Pass', price: '8500 Rs', description: 'Unlimited visits for 365 days' }
+        { value: 'ONE_TIME', label: 'One Time Pass', price: 75, description: 'Single day entry' },
+        { value: 'MONTHLY', label: 'Monthly Pass', price: 1000, description: 'Unlimited visits for 30 days' },
+        { value: 'YEARLY', label: 'Annual Pass', price: 8500, description: 'Unlimited visits for 365 days' }
     ];
 
     const passStatuses = [
@@ -55,13 +56,32 @@ const TicketBooking: React.FC = () => {
         { value: 'GROUP', label: 'Group (5+)', description: 'Group booking with discounts' }
     ];
 
+    // Updated pricing logic
+    const calculatePrice = (
+        basePrice: number,
+        status: 'NORMAL' | 'VIP',
+        userType: 'INDIVIDUAL' | 'GROUP'
+    ) => {
+        let price = basePrice;
+
+        if (status === 'VIP') {
+            price *= 2.5;
+        }
+
+        if (userType === 'GROUP') {
+            price *= 3.5;
+        }
+
+        return price;
+    };
+
     const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
         const { name, value } = e.target;
         setFormData(prev => ({
             ...prev,
             [name]: value
         }));
-        if (error) setError(''); // Clear error when user starts typing
+        if (error) setError('');
     };
 
     const validateForm = (): string | null => {
@@ -76,10 +96,12 @@ const TicketBooking: React.FC = () => {
 
         if (selectedDate < today) return 'Visit date cannot be in the past';
 
-        // Check if date is too far in the future (e.g., more than 1 year)
-        const oneYearFromNow = new Date();
-        oneYearFromNow.setFullYear(oneYearFromNow.getFullYear() + 1);
-        if (selectedDate > oneYearFromNow) return 'Visit date cannot be more than 1 year in advance';
+        const oneMonthFromNow = new Date();
+        oneMonthFromNow.setMonth(oneMonthFromNow.getMonth() + 1);
+
+        if (selectedDate > oneMonthFromNow) {
+            return 'Visit date cannot be more than 1 month in advance';
+        }
 
         return null;
     };
@@ -105,7 +127,6 @@ const TicketBooking: React.FC = () => {
             setCreatedTicket(ticket);
             setSuccessPopupOpen(true);
 
-            // Reset form after successful submission
             setFormData({
                 name: '',
                 dateOfVisit: '',
@@ -114,19 +135,15 @@ const TicketBooking: React.FC = () => {
                 passStatus: 'NORMAL',
                 userType: 'INDIVIDUAL'
             });
-
         } catch (err: any) {
             console.error('Booking error:', err);
 
             if (err.response) {
-                // API returned an error response
                 const errorMessage = err.response.data?.error || 'Failed to book ticket. Please try again.';
                 setError(errorMessage);
             } else if (err.request) {
-                // Network error
                 setError('Network error. Please check your connection and try again.');
             } else {
-                // Other error
                 setError('An unexpected error occurred. Please try again.');
             }
         } finally {
@@ -222,12 +239,13 @@ const TicketBooking: React.FC = () => {
                                     >
                                         {passTypes.map((type) => (
                                             <option key={type.value} value={type.value}>
-                                                {type.label} - {type.price}
+                                                {type.label} - {calculatePrice(type.price, formData.passStatus, formData.userType)} Rs
                                             </option>
                                         ))}
                                     </select>
                                     <p className="text-sm text-gray-500 mt-2">
-                                        {passTypes.find(t => t.value === formData.passType)?.description}
+                                        {passTypes.find(t => t.value === formData.passType)?.description} |
+                                        Price: {calculatePrice(passTypes.find(t => t.value === formData.passType)!.price, formData.passStatus, formData.userType)} Rs
                                     </p>
                                 </div>
 
@@ -277,7 +295,7 @@ const TicketBooking: React.FC = () => {
                                 </p>
                             </div>
 
-                            {/* Description Field - Now Required */}
+                            {/* Description Field */}
                             <div>
                                 <label className="block text-sm font-semibold text-gray-700 mb-3">
                                     Description *

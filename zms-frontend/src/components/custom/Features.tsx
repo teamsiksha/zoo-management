@@ -70,9 +70,9 @@ export const Features = () => {
                         >
                             <div className="mb-4">
                                 <div className="inline-flex items-center justify-center w-12 h-12 bg-primary/10 rounded-lg mb-4 group-hover:bg-primary/20 transition-colors">
-                                    <feature.icon className="h-6 w-6 text-[hsl(var(--primary-color))]" />
+                                    <feature.icon className="h-6 w-6 text-[var(--primary-color)]" />
                                 </div>
-                                <span className="inline-flex ml-2 px-3 py-1 text-xs font-medium rounded-full text-[hsl(var(--accent-color))] bg-orange-100">
+                                <span className="inline-flex ml-2 px-3 py-1 text-xs font-medium rounded-full text-orange-500 bg-orange-100">
                                     {feature.highlight}
                                 </span>
                             </div>

@@ -7,8 +7,9 @@ import NotFound from "./pages/NotFound";
 import TicketBooking from "./components/custom/TicketBooking";
 import MyTickets from "./components/custom/MyTickets";
 import CreateAnimal from "./pages/CreateAnimal";
-import AnimalDashboard from "./pages/AnimalDashboard";
+// import AnimalDashboard from "./pages/Dashboard";
 import AnimalUpdate from "./pages/AnimalUpdate";
+import Dashboard from "./pages/Dashboard";
 
 function App() {
 
@@ -19,9 +20,9 @@ function App() {
       <Route path="/portal/admin" element={<AdminPortal />} />
       <Route path="/book-ticket" element={<TicketBooking />} />
       <Route path="/my-tickets" element={<MyTickets />} />
-      <Route path="/create/animal" element={<CreateAnimal />} />
-      <Route  path="/dashboard/animals" element={<AnimalDashboard />} />
-      <Route path="/update/animal" element={<AnimalUpdate/>} />
+      <Route path="/add-animal" element={<CreateAnimal />} />
+      <Route path="/dashboard" element={<Dashboard />} />
+      <Route path="/update-animal" element={<AnimalUpdate />} />
       {/* /map */}
       <Route path="*" element={<NotFound />} />
     </Routes>

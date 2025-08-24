@@ -1,10 +1,8 @@
 import { Button } from "@/components/ui/button"
 import {
     Card,
-    CardAction,
     CardContent,
     CardDescription,
-    CardFooter,
     CardHeader,
     CardTitle,
 } from "@/components/ui/card"
@@ -37,7 +35,7 @@ export function SigninCard() {
         setErrors({ ...errors, [e.target.id]: undefined });
     };
 
-    const handleSubmit = async(e: React.FormEvent<HTMLFormElement>) => {
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
         const validationErrors = validate();
         if (Object.keys(validationErrors).length > 0) {
@@ -45,26 +43,23 @@ export function SigninCard() {
             return;
         }
         // Proceed with login logic here
-        try{
+        try {
             const response = await api.post('/auth/login', form);
-            
-            if(response.status === 200 || response.status === 201){
+
+            if (response.status === 200 || response.status === 201) {
                 localStorage.setItem("token", response.data.token);
-                navigate("/dashboard/animals");
+                navigate("/dashboard");
             }
         }
-        catch(err){console.error(err)}
+        catch (err) { console.error(err) }
     };
     return (
         <Card className="w-full max-w-sm p-2">
-            <CardHeader className="gap-3 pb-2">
+            <CardHeader className="gap-3 pb-2 pt-5">
                 <CardTitle className="mb-1 w-full">Login to your account</CardTitle>
                 <CardDescription className="mb-2">
                     Enter your email below to login to your account
                 </CardDescription>
-                <CardAction className="mt-1">
-                    <Button variant="link">Sign Up</Button>
-                </CardAction>
             </CardHeader>
             <CardContent className="pt-0 pb-2">
                 <form onSubmit={handleSubmit}>
@@ -75,7 +70,7 @@ export function SigninCard() {
                                 id="email"
                                 type="email"
                                 placeholder="m@example.com"
-                                className="h-10"
+                                className="h-10 border-1 border-gray-500"
                                 value={form.email}
                                 onChange={handleChange}
                                 aria-invalid={!!errors.email}
@@ -87,17 +82,17 @@ export function SigninCard() {
                         <div className="grid gap-3">
                             <div className="flex items-center mb-1">
                                 <Label htmlFor="password">Password</Label>
-                                <a
+                                {/* <a
                                     href="#"
                                     className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
                                 >
                                     Forgot your password?
-                                </a>
+                                </a> */}
                             </div>
                             <Input
                                 id="password"
                                 type="password"
-                                className="h-10"
+                                className="h-10 border-1 border-gray-500"
                                 value={form.password}
                                 onChange={handleChange}
                                 aria-invalid={!!errors.password}
@@ -107,17 +102,11 @@ export function SigninCard() {
                             )}
                         </div>
                     </div>
-                    <Button type="submit" className="w-full mb-2" >
-                    Login
-                </Button>
-                <Button variant="outline" className="w-full">
-                    Login with Google
-                </Button>
+                    <Button type="submit" className="w-full mb-2 mt-5" >
+                        Login
+                    </Button>
                 </form>
             </CardContent>
-            <CardFooter className="flex flex-col gap-4 pt-2">
-
-            </CardFooter>
         </Card>
     )
 }
