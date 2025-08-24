@@ -39,7 +39,6 @@ const TicketBooking: React.FC = () => {
     const [error, setError] = useState('');
     const [successPopupOpen, setSuccessPopupOpen] = useState(false);
     const [createdTicket, setCreatedTicket] = useState<Ticket | null>(null);
-    console.log({ formData, createdTicket });
     const passTypes = [
         { value: 'ONE_TIME', label: 'One Time Pass', price: '75 Rs', description: 'Single day entry' },
         { value: 'MONTHLY', label: 'Monthly Pass', price: '1000 Rs', description: 'Unlimited visits for 30 days' },

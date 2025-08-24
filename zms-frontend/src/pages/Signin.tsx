@@ -1,6 +1,6 @@
 import { SigninCard } from "../components/custom/SigninCard"
 import { MagicCard } from "../components/magicui/magic-card"
-
+import Header from "../components/custom/Header"
 const Signin = () => {
     return (
         <div className="min-h-screen w-full bg-white relative">
@@ -14,7 +14,7 @@ const Signin = () => {
                     backgroundSize: "100% 100%",
                 }}
             />
-
+            <Header />
             {/* Foreground Content */}
             <div className="relative z-10 flex items-center justify-center min-h-screen">
                 <MagicCard>
