@@ -1,78 +1,81 @@
-import React,{useState} from "react"
+import React, { useState } from "react"
 import { api } from "@/services/api";
-type genderType = "MALE" | "FEMALE"
+import Header from "@/components/custom/Header";
+import { useNavigate } from "react-router-dom";
+type genderType = "MALE" | "FEMALE" | "";
 
-type Animal={
-    species:string,
-    gender:genderType,
+type Animal = {
+    species: string,
+    gender: genderType,
     isChild: boolean,
-    age:string,
-    weight:string
+    age: string,
+    weight: string
 }
 const CreateAnimal = () => {
-    const [animal,setAnimal]=useState<Animal>({
-        species:"",
-        gender:"MALE",  
+    const [animal, setAnimal] = useState<Animal>({
+        species: "",
+        gender: "",
         // here genderType is used so not able to assign any other value so set "MALE" as a default value
-        isChild:false,
-        age:"",
-        weight:""
+        isChild: false,
+        age: "",
+        weight: ""
     })
-    const  handleGender = (e:React.ChangeEvent<HTMLSelectElement>) =>{
-        setAnimal({...animal,gender:e.target.value as genderType});
+    const handleGender = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        setAnimal({ ...animal, gender: e.target.value as genderType });
     }
-    const handleSubmit =async(e:React.FormEvent<HTMLFormElement>)=>{
+    const navigate = useNavigate();
+    const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        const speciescheck=animal.species.trim();
-        if(speciescheck.length===0){
+        const speciescheck = animal.species.trim();
+        if (speciescheck.length === 0) {
             return;
         }
-        const ageNum=Number(animal.age);
-        if(ageNum<0 || ageNum>200 || isNaN(ageNum) || !Number.isInteger(ageNum)){
+        const ageNum = Number(animal.age);
+        if (ageNum < 0 || ageNum > 200 || isNaN(ageNum) || !Number.isInteger(ageNum)) {
             return;
         }
-        const weightNum=Number(animal.weight);
-        if(weightNum<0 || weightNum>10000 || isNaN(weightNum)){
-            return;
-        }
-
-        if(!animal.species.length || !animal.age.length || !animal.weight.length){
+        const weightNum = Number(animal.weight);
+        if (weightNum < 0 || weightNum > 10000 || isNaN(weightNum)) {
             return;
         }
 
-        const dataToSend={
+        if (!animal.species.length || !animal.age.length || !animal.weight.length) {
+            return;
+        }
+
+        const dataToSend = {
             ...animal,
-            age:Number(animal.age),
-            weight:Number(animal.weight)
+            age: Number(animal.age),
+            weight: Number(animal.weight)
         }
-        try{
-            const response = await api.post("/animal/create",dataToSend,{
+        try {
+            const response = await api.post("/animal/create", dataToSend, {
                 headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-                withCredentials:true
+                withCredentials: true
             });
-            if(response.status===201){
+            if (response.status === 201) {
                 setAnimal({
-                    species:"",
-                    gender:"MALE",
-                    isChild:false,
-                    age:"",
-                    weight:""
+                    species: "",
+                    gender: "",
+                    isChild: false,
+                    age: "",
+                    weight: ""
                 })
-            }
-            else{
-              
+                navigate("/dashboard");
+
             }
         }
-        catch(err) {console.error(err)};
+        catch (err) { console.error(err) };
 
     }
     return (
         <div className="w-full flex items-center justify-center bg-[var(--background)] py-8">
+            <Header />
             <form
                 onSubmit={handleSubmit}
-                className="w-8/10 max-w-2xl bg-[var(--card)] border-2 border-[var(--border)] rounded-2xl shadow-lg p-12 flex flex-col gap-8 animate-slide-down mx-auto"
+                className="mt-24 w-8/10 max-w-2xl bg-[var(--card)] border-2 border-[var(--border)] rounded-2xl shadow-lg p-12 flex flex-col gap-8 animate-slide-down mx-auto"
             >
-                <h2 className="text-3xl font-extrabold text-center mb-2 text-[var(--primary-color)]">Create Animal</h2>
+                <h2 className="text-3xl font-extrabold text-center mb-2 text-[var(--primary-color)]">Add new Animal to NZP</h2>
                 <div className="flex flex-col gap-1">
                     <label htmlFor="Species" className="font-semibold text-[var(--primary-color)]">Name</label>
                     <input
@@ -143,4 +146,4 @@ const CreateAnimal = () => {
     );
 }
 
-export  default CreateAnimal;
+export default CreateAnimal;

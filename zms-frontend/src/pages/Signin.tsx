@@ -4,19 +4,8 @@ import Header from "../components/custom/Header"
 const Signin = () => {
     return (
         <div className="min-h-screen w-full bg-white relative">
-            {/* Amber Glow Background */}
-            <div
-                className="absolute inset-0 z-0"
-                style={{
-                    backgroundImage: `
-                      radial-gradient(125% 125% at 50% 90%, #ffffff 40%, #f59e0b 100%)
-                    `,
-                    backgroundSize: "100% 100%",
-                }}
-            />
             <Header />
-            {/* Foreground Content */}
-            <div className="relative z-10 flex items-center justify-center min-h-screen">
+            <div className="relative z-10 flex items-center justify-center min-h-screen bg-orange-50">
                 <MagicCard>
                     <SigninCard />
                 </MagicCard>

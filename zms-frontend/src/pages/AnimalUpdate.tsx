@@ -1,72 +1,72 @@
-import {useLocation,useNavigate} from "react-router-dom"
-import React,{useState} from "react"
+import { useLocation, useNavigate } from "react-router-dom"
+import React, { useState } from "react"
 import { api } from "@/services/api"
-type genderType="MALE" | "FEMALE"
-type Animal={
-    species:string,
-    gender:genderType,
+type genderType = "MALE" | "FEMALE"
+type Animal = {
+    species: string,
+    gender: genderType,
     isChild: boolean,
-    age:string,
-    weight:string
+    age: string,
+    weight: string
 }
-const AnimalUpdate = () =>{
-    const location=useLocation();
-    const navigate=useNavigate();
-    const animalData={
-        species:location.state.species,
-        gender:location.state.gender as genderType,
+const AnimalUpdate = () => {
+    const location = useLocation();
+    const navigate = useNavigate();
+    const animalData = {
+        species: location.state.species,
+        gender: location.state.gender as genderType,
         isChild: location.state.isChild,
-        age:location.state.age.toString(),
-        weight:location.state.weight.toString()
+        age: location.state.age.toString(),
+        weight: location.state.weight.toString()
     }
-    const animalId=location.state.id;
-    const [animal,setAnimal]=useState<Animal>(animalData);
-    const handleGender = ( e:React.ChangeEvent<HTMLSelectElement> ) =>{
-        setAnimal({...animal,gender:e.target.value as genderType});
+    const animalId = location.state.id;
+    const [animal, setAnimal] = useState<Animal>(animalData);
+    const handleGender = (e: React.ChangeEvent<HTMLSelectElement>) => {
+        setAnimal({ ...animal, gender: e.target.value as genderType });
     }
-    const handleUpdate=async(e:React.FormEvent<HTMLFormElement>)=>{
+    const handleUpdate = async (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        const speciesCheck=animal.species.trim();
-        if(speciesCheck.length===0){
+        const speciesCheck = animal.species.trim();
+        if (speciesCheck.length === 0) {
             return;
         }
-        const ageNum=Number(animal.age);
-        if(ageNum<0||ageNum>200||isNaN(ageNum)){
+        const ageNum = Number(animal.age);
+        if (ageNum < 0 || ageNum > 200 || isNaN(ageNum)) {
             return;
         }
-        const weightNum=Number(animal.weight);
-        if(weightNum<0 || weightNum>10000 || isNaN(weightNum)){
+        const weightNum = Number(animal.weight);
+        if (weightNum < 0 || weightNum > 10000 || isNaN(weightNum)) {
             return;
         }
-        const dataToSent={
+        const dataToSent = {
             ...animal,
-            species:speciesCheck,
-            age:ageNum,
-            weight:weightNum
+            species: speciesCheck,
+            age: ageNum,
+            weight: weightNum
         }
-        try{
-            const response=await api.put(`/animal/update/${animalId}`,dataToSent,{
+        try {
+            const response = await api.put(`/animal/update/${animalId}`, dataToSent, {
                 headers: { Authorization: `Bearer ${localStorage.getItem("token")}` },
-                withCredentials:true
+                withCredentials: true
             });
-            if(response.status==200){
+            if (response.status == 200) {
                 navigate(-1);
                 return;
             }
-            else{
+            else {
                 return;
             }
         }
-        catch(err){console.error(err)}
+        catch (err) { console.error(err) }
     }
 
-    return(
+    return (
         <div className="w-full flex items-center justify-center bg-[var(--background)] py-8">
             <form
                 onSubmit={handleUpdate}
                 className="w-8/10 max-w-2xl bg-[var(--card)] border-2 border-[var(--border)] rounded-2xl shadow-lg p-12 flex flex-col gap-8 animate-slide-down mx-auto"
             >
-                <h2 className="text-3xl font-extrabold text-center mb-2 text-[var(--primary-color)]">Create Animal</h2>
+                <h2 className="text-3xl font-extrabold text-center mb-2 text-[var(--primary-color)]">Update Animal</h2>
                 <div className="flex flex-col gap-1">
                     <label htmlFor="Species" className="font-semibold text-[var(--primary-color)]">Name</label>
                     <input
@@ -135,5 +135,5 @@ const AnimalUpdate = () =>{
             </form>
         </div>
     )
-} 
+}
 export default AnimalUpdate;

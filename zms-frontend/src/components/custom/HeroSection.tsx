@@ -28,7 +28,7 @@ export default function HeroSection() {
 
           <div className="flex flex-col sm:flex-row gap-4">
             <Link to="/book-ticket">
-              <Button variant="hero" size="lg" className="bg-[hsl(var(--accent-color))] cursor-pointer text-white">
+              <Button variant="hero" size="lg" className="bg-orange-400 cursor-pointer text-white">
                 <Calendar className="h-5 w-5" />
                 Book Your Tickets
               </Button>

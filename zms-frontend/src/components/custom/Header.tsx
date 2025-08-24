@@ -19,7 +19,7 @@ export default function Header() {
     const handleLogout = () => {
         localStorage.removeItem("token");
         setIsLoggedIn(false);
-        navigate("/signin");
+        navigate("/");
     };
 
     const handleScroll = (e: React.MouseEvent<HTMLAnchorElement>, id: string) => {
@@ -41,8 +41,9 @@ export default function Header() {
                 <div className="flex items-center gap-2">
                     <img src={Images.logo2} alt="logo" height={40} width={40} />
                     <Link to="/" onClick={(e) => handleScroll(e, "hero")} >
-                        <h1 className="text-2xl font-bold text-[hsl(var(--primary-color))]">National Zoological park</h1>
-                    </Link>
+                        <h1 className="text-sm sm:text-lg md:text-xl lg:text-2xl font-bold text-[hsl(var(--primary-color))]">
+                            National Zoological Park
+                        </h1>                    </Link>
                 </div>
 
                 <nav className="hidden md:flex items-center gap-6">
@@ -69,15 +70,15 @@ export default function Header() {
                         <Button
                             variant="admin"
                             size="sm"
-                            className="hover:bg-[var(--primary-color)] bg-[hsl(var(--secondary-color))] cursor-pointer"
-                            onClick={() => navigate("/dashboard/animals")}
+                            className="hover:bg-[var(--primary-color)] bg-[var(--secondary-color)] cursor-pointer"
+                            onClick={() => navigate("/dashboard")}
                         >
-                            Animals Details
+                            Dashboard
                         </Button>
                         <Button
                             variant="admin"
                             size="sm"
-                            className="hover:bg-[var(--primary-color)] bg-[hsl(var(--secondary-color))] cursor-pointer"
+                            className="hover:bg-red-400 text-red-500 cursor-pointer"
                             onClick={handleLogout}
                         >
                             Logout
@@ -87,7 +88,7 @@ export default function Header() {
                     <Button
                         variant="admin"
                         size="sm"
-                        className="hover:bg-[var(--primary-color)] bg-[hsl(var(--secondary-color))] cursor-pointer"
+                        className="hover:bg-[var(--primary-color)] bg-[var(--secondary-color)] cursor-pointer"
                         onClick={() => navigate("/signin")}
                     >
                         <Shield className="h-4 w-4" />
