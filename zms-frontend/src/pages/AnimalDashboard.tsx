@@ -56,6 +56,11 @@ const animalDashboard = () =>{
             {isLoading ? (
                 <p className="text-lg text-[var(--primary-color)]">Loading animals...</p>
             ) : (
+                <>
+                <div className="w-full h-15 flex md:px-30 justify-around md:justify-between items-center my-10">
+                    <h2 className="text-black text-2xl md:text-4xl">Animal dashboard</h2>
+                    <button className="bg-[var(--primary-color)] cursor-pointer h-10 w-auto px-10 rounded hover:text-white" onClick={()=>navigate("/create/animal")}>Create Animal</button>
+                </div>
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 w-full max-w-6xl">
                     {animals.map((animal) => (
                         <div
@@ -78,8 +83,10 @@ const animalDashboard = () =>{
                             <button className="bg-[var(--warning-color)] rounded py-2 my-1 hover:translate-y-0.5 duration-100 cursor-pointer hover:scale-99 text-black" onClick={()=>navigate("/update/animal",{state: animal})}>Update</button>
                             <button className="bg-[var(--danger-color)] rounded py-2 my-1 hover:translate-y-0.5 duration-100 cursor-pointer hover:scale-99 text-bold" onClick={()=>handleDelete(animal.id)}>Delete</button>
                         </div>
+                        
                     ))}
                 </div>
+                </>
             )}
         </div>
         <Footer></Footer>
